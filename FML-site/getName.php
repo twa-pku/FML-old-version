@@ -6,7 +6,7 @@ $conn=mysqli_connect("localhost","guest","","fml",'3306','/var/lib/mysql/mysql.s
 if(!$conn){
 	die('Could not connect: ' . mysqli_error($conn));
 }
-$sql="SELECT * FROM current WHERE ".$type." LIKE '%".$str."%' ORDER BY KeyinFML";
+$sql="SELECT * FROM current WHERE ".$type." LIKE '%".$str."%' ORDER BY KeyinFML LIMIT 100";
 $result=mysqli_query($conn,$sql);
 //在一个表格中打印所有符合条件的球员
 if(mysqli_num_rows($result)>0){
