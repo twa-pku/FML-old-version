@@ -4,6 +4,7 @@ FML(Fantasy Manager League)是[北大未名BBS Sports_Game](https://bbs.pku.edu.
 
 - [FML server](#FML-server)
 - [FML site](#FML-site)
+- [更新记录]（#更新记录）
 
 ## FML server
 一个以CSAPP书中tiny服务器为原型扩展而来的服务器，可支持POST方法，支持多线程运行，及处理php文件。  
@@ -48,3 +49,12 @@ fastcgi.c和fastcgi.h使得服务器能将运行php所需要的信息用fastcgi�
 - 使管理人员能爬取footballsqurds以更新球员大名单  
 - 支持FMC等杯赛类赛事  
 - 如有必要，实现暗标处理等功能  
+
+## 更新记录
+
+### 2020-03-06
+- 更改添加进球方式
+- 限制查找球员最大显示数目
+- 微调了一些显示事项
+- 使手机能通过微信里的链接打开网页
+- 使服务器能处理ECONNRESET错误
