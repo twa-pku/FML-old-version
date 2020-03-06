@@ -1,6 +1,8 @@
-# FML
+# FML kit
 
-包括FML server和FML site两部分，分别是服务器和网页。项目网址为[39.106.174.180:45807/](39.106.174.180:45807/)。  
+FML(Fantasy Manager League)是[北大未名BBS Sports_Game](https://bbs.pku.edu.cn/v2/thread.php?bid=519&mode=topic)版网友进行的版面足球游戏。FML kit是对于该游戏数据处理和展示问题的一个解决方案，包括FML server和FML site两部分，分别是服务器和网页。项目网址为[fmlpku.com:45807](fmlpku.com:45807)。
+
+- [FML server](https://github.com/twa-pku/FML/edit/master/README.md)
 
 ## FML server
 一个以CSAPP书中tiny服务器为原型扩展而来的服务器，可支持POST方法，支持多线程运行，及处理php文件。  
@@ -15,7 +17,7 @@ fastcgi.c和fastcgi.h使得服务器能将运行php所需要的信息用fastcgi�
 - 优化代码，进一步增强性能与健壮性  
 
 ## FML site
-一个用来处理[北大未名BBS Sports_Game](https://bbs.pku.edu.cn/v2/thread.php?bid=519&mode=topic)版面FML游戏流程，并展示数据的网站。  
+一个用来处理FML游戏流程，并展示数据的网站。  
 
 ### 目前已经实现的功能：  
 #### 处理每轮FML比赛  
