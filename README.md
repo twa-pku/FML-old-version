@@ -15,7 +15,7 @@ csapp.c和csapp.h基本是csapp的源码，其中加了Rio_writen_EPIPE_free函�
 FML-server.c由tiny.c改写，使其支持POST，支持多线程运行，对请求头进行更多的处理，能调用fastcgi.h中定义的函数处理php文件，并能处理SIGPIPE信号。  
 fastcgi.c和fastcgi.h使得服务器能将运行php所需要的信息用fastcgi的方式传递给php-fpm，并读取php-fpm传回的内容。  
 
-### to-do list  
+### todo list  
 - 支持keep-alive  
 - 支持https  
 - 优化代码，进一步增强性能与健壮性  
@@ -44,7 +44,7 @@ fastcgi.c和fastcgi.h使得服务器能将运行php所需要的信息用fastcgi�
 - 对FMC等其它赛事的支持  
 - 爬取footballsqurds网页功能  
 
-### to-do list
+### todo list
 - 为页面写css，美观页面  
 - 让页面适合手机显示  
 - 优化账号系统  
