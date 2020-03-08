@@ -96,7 +96,6 @@ void read_requesthdrs(rio_t *rp,char* method,char* args,int* postlen,char* conte
     char buf[MAXLINE];
 
     Rio_readlineb(rp, buf, MAXLINE);
-    printf("%s", buf);
     while(strcmp(buf, "\r\n")) {          //line:netp:readhdrs:checkterm
 	Rio_readlineb(rp, buf, MAXLINE);
 	if(strcasecmp(method,"POST")==0 && strstr(buf, "Content-Length")){
@@ -131,7 +130,7 @@ int parse_uri(char *uri, char *filename, char *cgiargs, char* method)
 {
     char *ptr;
 
-    if (!strstr(uri, ".php")) {  /* Static content */ //这里FML server只处理.php的动态内容
+    if (!strstr(uri, ".php") && !strstr(uri,"?nsukey=")) {  /* Static content */ //这里FML server只处理.php的动态内容
 	strcpy(cgiargs, "");                             //line:netp:parseuri:clearcgi
 	strcpy(filename, ".");                           //line:netp:parseuri:beginconvert1
 	strcat(filename, uri);                           //line:netp:parseuri:endconvert1
@@ -150,7 +149,10 @@ int parse_uri(char *uri, char *filename, char *cgiargs, char* method)
 	else if(strcasecmp(method,"GET")==0)
 	    strcpy(cgiargs, "");                         //line:netp:parseuri:endextract
 	strcpy(filename, ".");                           //line:netp:parseuri:beginconvert2
-	strcat(filename, uri);                           //line:netp:parseuri:endconvert2
+	strcat(filename, uri);
+    if(strlen(uri)==1){
+        strcat(filename,"login.php");
+    }                           //line:netp:parseuri:endconvert2
 	return 0;
     }
 }
