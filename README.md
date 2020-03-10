@@ -1,6 +1,8 @@
 # FML kit
 
 FML(Fantasy Manager League)是[北大未名BBS Sports_Game](https://bbs.pku.edu.cn/v2/thread.php?bid=519&mode=topic)版网友进行的版面足球游戏。FML kit是对于该游戏数据处理和展示问题的一个解决方案，包括FML server和FML site两部分，分别是服务器和网页。项目网址为[http://fmlpku.com:45807](http://fmlpku.com:45807)。  
+目前页面如下（还没有写css:-()。所有的功能均已经可以使用。
+![png](https://github.com/twa-pku/FML/blob/master/FML-site/site.PNG)  
 
 ## Contents
 
