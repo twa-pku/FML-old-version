@@ -21,6 +21,7 @@ elseif(mysqli_num_rows(mysqli_query($conn,"SELECT * FROM current WHERE Name='".$
 	echo("本轮未提交此人进球。");
 }
 else{
+	mysqli_query($conn,"START TRANSACTION");
 	$team=mysqli_fetch_assoc($res)['Team'];
 	mysqli_query($conn,"UPDATE current SET tmpGoal=(SELECT tmpGoal FROM current WHERE Name='".$str."')-1 WHERE Name='".$str."'");
 	$lineup=mysqli_fetch_assoc(mysqli_query($conn,"SELECT Lineup FROM teams WHERE Abbr='".$team."'"))['Lineup'];
@@ -61,6 +62,7 @@ else{
 			mysqli_query($conn,"UPDATE teams SET resGoalagainst=".($resulta['resGoalagainst']-1)." WHERE Abbr='".$team2."'");
 		}
 	}
+	mysqli_query($conn,"COMMIT");
 	fwrite($file,"Delete ".$str."'s goal at ".date('Y-m-d H:i:s',time()+8*3600)."\n");
 	echo("已撤销".$str."的进球");
 }

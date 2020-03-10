@@ -32,6 +32,7 @@ elseif(mysqli_num_rows(mysqli_query($conn,"SELECT * FROM current WHERE Name='".$
 }
 //否则，自由签有效，更新数据库
 else{
+	mysqli_query($conn,"START TRANSACTION");
 	mysqli_query($conn,"UPDATE current SET Team='".$team."',Price=".$money.",OwnerNum=(SELECT OwnerNum FROM current WHERE Name='".$player."')+1 WHERE Name='".$player."'");
 	mysqli_query($conn,"UPDATE teams SET Money=(SELECT Money FROM teams WHERE Abbr='".$team."')-".$money." WHERE Abbr='".$team."'");//调整money
 	$res=mysqli_fetch_assoc(mysqli_query($conn,"SELECT Owner1,Owner2,Owner3 FROM current WHERE Name='".$player."'"));
@@ -44,6 +45,7 @@ else{
 	elseif($res['Owner3']==""){
 		mysqli_query($conn,"UPDATE current SET Owner3='".$team."' WHERE Name='".$player."'");
 	}
+	mysqli_query($conn,"COMMIT");
 	//在日志中记录签约
 	$file=fopen("logs.txt", "a");
 	fwrite($file,$team." sign ".$player." at ".date('Y-m-d H:i:s',time()+8*3600)."\n");

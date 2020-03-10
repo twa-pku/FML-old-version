@@ -43,8 +43,10 @@
 	<h2>导出数据库</h2>
 	<input type='button' value='导出球员数据库' onclick="window.open('export_player_database.php')"><input type='button' value='导出球队数据库' onclick="window.open('export_team_database.php')">
 </p></div>
+	<h1>最新放送</h1>
+        <p><a href='http://fmlpku.com:45807/special.php'>查看去除意甲球员后的玩家阵容</a></p>
 	<h2>实时赛况</h2>
-	<p>	提交进球球员：<input type='text' oninput="this.value=this.value.replace(/[^a-zA-Z0-9-.\']/g,'');" id='scoredPlayer'><input type='button' value='提交' onclick="submitscoredPlayer(document.getElementById('scoredPlayer').value)">	<span><a href="broadcast_real_time.php">查看实时直播帖</a></span>		<span><a href="league_table_real_time.php">查看实时积分榜</a></span>		<span><a href="shooters.php">查看射手榜</a></span></p>
+	<p>	提交进球球员：<input type='text' oninput="this.value=this.value.replace(/[^a-zA-Z0-9-.\']/g,'');" id='scoredPlayer' placeholder='输入格式：球员+当前进球数，如Messi2' size='40'><input type='button' value='提交' onclick="submitscoredPlayer(document.getElementById('scoredPlayer').value)">	<span><a href="broadcast_real_time.php">查看实时直播帖</a></span>		<span><a href="league_table_real_time.php">查看实时积分榜</a></span>		<span><a href="#" onclick="gettopGoalscorers(document.getElementById('firstteamgoalnum').value,document.getElementById('subgoalnum').value)">查看射手榜</a>（显示一线队进球超过<input type='number' value='0' id='firstteamgoalnum'>个，预备队进球超过<input type='number' value='0' id='subgoalnum'>个的球员）</span></p>
 	<h2>查询</h2>
 	<div>按<select id="searchType"><option value="Name">球员名</option><option value="KeyinFML">球员编号</option><option value="Club">球队名</option><option value="Team">FML球队名</option></select>查询：			<input size="100" type="text" id="searchName" oninput="this.value=this.value.replace(/[^a-zA-Z0-9-.\']/g,'');" placeholder="请输入球员名、球队名、编号等..."> <input type="button" onclick="getName(document.getElementById('searchType').options[document.getElementById('searchType').selectedIndex].value,document.getElementById('searchName').value)" value="查询"></div>
 	<div id="showresult"></div>
@@ -64,6 +66,15 @@
 		else
 		window.open("History/"+type+round+".html");
 	}
+</script>
+<script type="text/javascript">
+
+        function gettopGoalscorers(num1,num2){
+                if(num1=="" || num2=="")
+                        alert("请输入数字");
+                else
+                window.open("shooters.php?num1="+num1+"&num2="+num2);
+        }
 </script>
 <script type="text/javascript">
 	function logout(){

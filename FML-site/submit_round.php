@@ -36,6 +36,7 @@ echo("<!DOCTYPE html>
 </head>
 <body>
 	<div>一线队</div>");
+	mysqli_query($conn,"START TRANSACTION");
 	for($i=0;$i<8;$i++){
 		//输出一线队直播帖。具体细节和直播帖文件相同。
 		echo("<div>");
@@ -343,6 +344,7 @@ fclose($handle);
 ob_end_clean();
 //设置status数据库的状态，表示比赛结束
 mysqli_query($conn,"UPDATE status SET MATCH_ON=0,LAST_SCORED_PLAYER=NULL WHERE Activity='FML'");
+mysqli_query($conn,"COMMIT");
 mysqli_close($conn);
 $file=fopen("logs.txt", "a");
 fwrite($file,"Submit round at ".date('Y-m-d H:i:s',time()+8*3600)."\n");

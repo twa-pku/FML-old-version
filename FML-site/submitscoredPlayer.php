@@ -1,5 +1,4 @@
 <?php
-//if(isset($_COOKIE['us_ern-ame']) && $_COOKIE['us_ern-ame']=='admin'){
 $str=$_GET["str"];
 $len=strlen($str);
 $num=$str[$len-1];
@@ -10,8 +9,7 @@ if(is_numeric($num) && (int)$num>0){
 else{
 	$num=1;
 }
-
-$conn=mysqli_connect("localhost","admin","kiljuvarlin","fml",'3306','/var/lib/mysql/mysql.sock');//未来可能得设置一个新的权限级别，假如开放玩家提交进球
+$conn=mysqli_connect("localhost","admin","","fml",'3306','/var/lib/mysql/mysql.sock');//未来可能得设置一个新的权限级别，假如开放玩家提交进球
 if(!$conn){
 	die('Could not connect: ' . mysqli_error($conn));
 }
@@ -19,7 +17,7 @@ if(!$conn){
 $res=mysqli_query($conn,"SELECT tmpGoal,Team FROM current WHERE Name='".$str."'");
 $resfetch=mysqli_fetch_assoc($res);
 $team=$resfetch['Team'];
-$tmpGoal=$resfetch['tmpgoal'];
+$tmpGoal=$resfetch['tmpGoal'];
 if(mysqli_num_rows(mysqli_query($conn,"SELECT * FROM teams WHERE tmpCode=1"))==0){
 	echo("现在不是比赛时间！");
 }
@@ -40,9 +38,8 @@ current:
 本轮进球
 */
 else{
-	$team=mysqli_fetch_assoc($res)['Team'];
-	//mysqli_query($conn,"START TRANSACTION");
-	mysqli_query($conn,"UPDATE current SET tmpGoal=".$num.") WHERE Name='".$str."'");
+	mysqli_query($conn,"START TRANSACTION");
+	mysqli_query($conn,"UPDATE current SET tmpGoal=".(int)$num." WHERE Name='".$str."'");
 	$lineup=mysqli_fetch_assoc(mysqli_query($conn,"SELECT Lineup FROM teams WHERE Abbr='".$team."'"))['Lineup'];
 	$array=explode(' ',str_replace("\"","",str_replace("/", " ", strtolower($lineup))));
 	mysqli_query($conn,"UPDATE status SET LAST_MODIFIED=".time().",LAST_SCORED_PLAYER='".$str."' WHERE Activity='FML'");
@@ -71,7 +68,6 @@ else{
 			mysqli_query($conn,"UPDATE teams SET Goalagainst=".($resulta['Goalagainst']+1)." WHERE Abbr='".$team2."'");
 		}
 		fwrite($file,"Add ".$str."'s goal to ".$team." at ".date('Y-m-d H:i:s',time()+8*3600)."\n");
-		//mysqli_query($conn,"COMMIT");
 		echo("已添加".$str."到".$team);
 	}
 	else{
@@ -87,10 +83,10 @@ else{
 			mysqli_query($conn,"UPDATE teams SET tmpresGoal=".($resultf['tmpresGoal']+1).",resGoalfor=".($resultf['resGoalfor']+1)." WHERE Abbr='".$team."'");
 			mysqli_query($conn,"UPDATE teams SET resGoalagainst=".($resulta['resGoalagainst']+1)." WHERE Abbr='".$team2."'");
 		}
-		//mysqli_query($conn,"COMMIT");
 		fwrite($file,"Add ".$str."'s goal to ".strtolower($team)." at ".date('Y-m-d H:i:s',time()+8*3600)."\n");
 		echo("已添加".$str."到".strtolower($team));
 	}
+	mysqli_query($conn,"COMMIT");
 	fclose($file);
 }
 mysqli_close($conn);
