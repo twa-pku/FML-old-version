@@ -3,6 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<title>FML site</title>
+	<script type="text/javascript">var flag=0;</script>
 </head>
 <body>
 	<!--a href="readme.html">页面使用帮助</a-->	
@@ -12,6 +13,9 @@
 	$conn=mysqli_connect("localhost","guest","","fml","3306","/var/lib/mysql/mysql.sock");
 	if(!$conn){
 		die('Could not connect: ' . mysqli_error($conn));
+	}
+	if(isset($_COOKIE['username']) && $_COOKIE['username']==md5('root')){
+		echo("<script> flag=1;</script>");
 	}
 	$result=mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM status WHERE Activity='FML'"));
 	if($result['MATCH_ON']==1){
@@ -83,25 +87,11 @@
 	}
 </script>
 <script type="text/javascript">
-		var mycookie="";
-		var strcookie=document.cookie;
-		if(strcookie.length>0){
-		var arrcookie=strcookie.split(";");
-		for(var i=0;i<arrcookie.length;i++){
-			var arr=arrcookie[i].split("=");
-			if(arr[0]=="us_ern-ame")
-				mycookie=arr[1];
-		}
-		if(mycookie=="admin"){
+		if(flag==1){
 			document.getElementById("login").style.display="none";
 			document.getElementById("guest").style.display="none";
 		}
-		else if(mycookie==""){
-			document.getElementById("welcome").style.display="none";
-			document.getElementById("admin").style.display="none";
-		}
-	}
-	else{
+		else{
 			document.getElementById("welcome").style.display="none";
 			document.getElementById("admin").style.display="none";
 		}

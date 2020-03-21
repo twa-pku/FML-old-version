@@ -1,5 +1,9 @@
 <?php
-$str=$_GET["str"];
+$conn=mysqli_connect("localhost","admin","","fml",'3306','/var/lib/mysql/mysql.sock');//未来可能得设置一个新的权限级别，假如开放玩家提交进球
+if(!$conn){
+	die('Could not connect: ' . mysqli_error($conn));
+}
+$str=mysqli_real_escape_string($conn,$_GET["str"]);
 $len=strlen($str);
 $num=$str[$len-1];
 if(is_numeric($num) && (int)$num>0){
@@ -8,10 +12,6 @@ if(is_numeric($num) && (int)$num>0){
 }
 else{
 	$num=1;
-}
-$conn=mysqli_connect("localhost","admin","","fml",'3306','/var/lib/mysql/mysql.sock');//未来可能得设置一个新的权限级别，假如开放玩家提交进球
-if(!$conn){
-	die('Could not connect: ' . mysqli_error($conn));
 }
 //判断一下条件
 $res=mysqli_query($conn,"SELECT tmpGoal,Team FROM current WHERE Name='".$str."'");

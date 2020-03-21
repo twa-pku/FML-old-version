@@ -1,12 +1,12 @@
 <?php
-if(isset($_COOKIE['username']) && $_COOKIE['username']=='root'){
-$str=$_GET["str"];
-
-//整个文档完全就是把submitscoredPlayer.php做的事反过来做一遍，结构相同
+if(isset($_COOKIE['username']) && $_COOKIE['username']==md5('root')){
 $conn=mysqli_connect("localhost","admin","","fml",'3306','/var/lib/mysql/mysql.sock');
 if(!$conn){
 	die('Could not connect: ' . mysqli_error($conn));
 }
+$str=mysqli_real_escape_string($conn,$_GET["str"]);
+
+//整个文档完全就是把submitscoredPlayer.php做的事反过来做一遍，结构相同
 $res=mysqli_query($conn,"SELECT tmpGoal,Team FROM current WHERE Name='".$str."'");
 if(mysqli_num_rows(mysqli_query($conn,"SELECT * FROM teams WHERE tmpCode=1"))==0){
 	echo("现在不是比赛时间！");

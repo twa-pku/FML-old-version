@@ -1,11 +1,11 @@
 <?php
-$type=$_GET["type"];//按照什么查询？目前支持按照球员名，游戏中编号，俱乐部名和FML球队名查询
-$str=$_GET["str"];//查询字符串。支持模糊查询
-
 $conn=mysqli_connect("localhost","guest","","fml",'3306','/var/lib/mysql/mysql.sock');
 if(!$conn){
 	die('Could not connect: ' . mysqli_error($conn));
 }
+$type=mysqli_real_escape_string($conn,$_GET["type"]);//按照什么查询？目前支持按照球员名，游戏中编号，俱乐部名和FML球队名查询
+$str=mysqli_real_escape_string($conn,$_GET["str"]);//查询字符串。支持模糊查询
+
 $sql="SELECT * FROM current WHERE ".$type." LIKE '%".$str."%' ORDER BY KeyinFML LIMIT 100";
 $result=mysqli_query($conn,$sql);
 //在一个表格中打印所有符合条件的球员

@@ -1,5 +1,5 @@
 <?php
-if(isset($_COOKIE['username']) && $_COOKIE['username']=='admin'){
+if(isset($_COOKIE['username']) && $_COOKIE['username']==md5('root')){
 		echo("<script>window.open('index.php','_self');</script>");
 	}
 else{

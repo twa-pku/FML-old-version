@@ -1,16 +1,16 @@
 <?php
-if(isset($_COOKIE['username']) && $_COOKIE['username']=='root'){
-//球队1，球队2，球员字符串1，球员字符串2，钱
-$team1=strtoupper($_GET['team1']);
-$team2=strtoupper($_GET['team2']);
-$playerstr1=$_GET['player1'];
-$playerstr2=$_GET['player2'];
-$money=$_GET['money'];
-
+if(isset($_COOKIE['username']) && $_COOKIE['username']==md5('root')){
 $conn=mysqli_connect("localhost","admin","","fml",'3306','/var/lib/mysql/mysql.sock');
 if(!$conn){
 	die('Could not connect: ' . mysqli_error($conn));
 }
+//球队1，球队2，球员字符串1，球员字符串2，钱
+$team1=mysqli_real_escape_string($conn,strtoupper($_GET['team1']));
+$team2=mysqli_real_escape_string($conn,strtoupper($_GET['team2']));
+$playerstr1=mysqli_real_escape_string($conn,$_GET['player1']);
+$playerstr2=mysqli_real_escape_string($conn,$_GET['player2']);
+$money=mysqli_real_escape_string($conn,$_GET['money']);
+
 $sign=0;
 //制作球员列表
 $playerarray1=explode(",", $playerstr1);

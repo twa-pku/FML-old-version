@@ -1,5 +1,5 @@
 <?php
-if(isset($_COOKIE['username']) && $_COOKIE['username']=='root'){
+if(isset($_COOKIE['username']) && $_COOKIE['username']==md5('root')){
 $conn=mysqli_connect("localhost","admin","","fml",'3306','/var/lib/mysql/mysql.sock');
 if(!$conn){
 	die('Could not connect: ' . mysqli_error($conn));

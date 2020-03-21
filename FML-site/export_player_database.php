@@ -1,5 +1,5 @@
 <?php
-if(isset($_COOKIE['username']) && $_COOKIE['username']=='root'){
+if(isset($_COOKIE['username']) && $_COOKIE['username']==md5('root')){
 header('Content-Type: application/vnd.ms-excel'); 
 header('Content-Disposition: attachment;filename="database_current.csv"'); 
 header('Cache-Control: max-age=0'); 

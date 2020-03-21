@@ -23,7 +23,7 @@ $privatekey='-----BEGIN RSA PRIVATE KEY-----
 $privatekey=openssl_pkey_get_private($privatekey);
 openssl_private_decrypt($password, $password_de, $privatekey);
 if(md5($password_de)==$password_sql){
-	setcookie('username',$username,time()+3600);
+	setcookie('username',md5($username),time()+3600);
 	echo("1");
 }
 else{
