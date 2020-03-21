@@ -21,7 +21,7 @@ fastcgi.c和fastcgi.h使得服务器能将运行php所需要的信息用fastcgi�
 ### 使用方法
 - 安装php和mysql，安装时enable php-fpm  
 - make  
-- 把文件cp到该文件夹，更改fastcgi.h中的WORKING_FOLDER  
+- 把所有php文件cp到目标文件夹，并更改fastcgi.h中的WORKING_FOLDER  
 
 ### todo list  
 - 支持keep-alive  
@@ -63,8 +63,15 @@ fastcgi.c和fastcgi.h使得服务器能将运行php所需要的信息用fastcgi�
 ## 更新记录
 
 ### 2020-03-06
-- 更改添加进球方式
-- 限制查找球员最大显示数目
-- 微调了一些显示事项
-- 使手机能通过微信里的链接打开网页
-- 使服务器能处理ECONNRESET错误
+- 更改添加进球方式  
+- 限制查找球员最大显示数目  
+- 微调了一些显示事项  
+- 使手机能通过微信里的链接打开网页  
+- 使服务器能处理ECONNRESET错误  
+
+### 2020-03-08
+- 添加根据进球过滤射手榜功能  
+
+### 2020-03-21
+- 在后台增加了对SQL注入攻击的简单防御  
+- 提高了账号系统代码的安全性  
